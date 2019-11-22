@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,23 +8,11 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  currentImage: any;
 
-  constructor(private camera: Camera) { }
+  photos: any;
 
-  takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
+  // tslint:disable-next-line: no-shadowed-variable
+  constructor( private camera: Camera, public photoService: PhotoService) { }
 
-    this.camera.getPicture(options).then((imageData) => {
-      this.currentImage = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-      // Handle error
-      console.log('Camera issue:' + err);
-    });
-  }
+
 }
